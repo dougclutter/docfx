@@ -23,6 +23,8 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.8.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.8.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.8.0" />
+    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.12" />
+    <PackageVersion Include="Microsoft.OpenApi.Readers" Version="1.6.12" />
     <PackageVersion Include="Microsoft.Playwright" Version="1.40.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
