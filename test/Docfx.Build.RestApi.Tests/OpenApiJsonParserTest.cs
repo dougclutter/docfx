@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Docfx.Build.RestApi.OpenApi;
-using Docfx.Build.RestApi.Swagger;
+﻿using Docfx.Build.RestApi.OpenApi;
 using Microsoft.OpenApi.Models;
 using Xunit;
 
@@ -19,10 +13,10 @@ public class OpenApiJsonParserTest
     {
         var swagger = OpenApiJsonParser.Parse(fileName);
 
-        Assert.Single(swagger.Paths.Values);
-        var contacts = swagger.Paths["/contacts"];
-        Assert.Single(contacts.Operations);
+        Assert.Single(swagger.Document.Paths.Values);
+        var contacts = swagger.Document.Paths["/contacts"];
 
+        Assert.Single(contacts.Operations);
         var operation = contacts.Operations[OperationType.Get];
         Assert.NotNull(operation);
 
@@ -35,5 +29,11 @@ public class OpenApiJsonParserTest
 
         var example = response.Content["application/json"];
         Assert.NotNull(example);
+    }
+    [Fact]
+    public void DoesParsingSwagger2Work()
+    {
+        var document = OpenApiJsonParser.Parse("TestData/swagger/contacts.json");
+        Assert.NotNull(document);
     }
 }
