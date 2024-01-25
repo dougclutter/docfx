@@ -102,7 +102,7 @@ public class OpenApiDocumentProcessor : ReferenceDocumentProcessorBase
             openApiModel.Metadata["source"] = new SourceDetail { Remote = repoInfo };
         }
 
-        //openApiModel.Metadata = MergeMetadata(openApiModel.Metadata, metadata);
+        openApiModel.Metadata = MergeMetadata(openApiModel.Metadata, metadata);
         var vm = OpenApiModelConverter.FromOpenApiModel(openApiModel);
         vm.Metadata[Constants.PropertyName.SystemKeys] = SystemKeys;
         var displayLocalPath = PathUtility.MakeRelativePath(EnvironmentContext.BaseDirectory, file.FullPath);
@@ -160,5 +160,20 @@ public class OpenApiDocumentProcessor : ReferenceDocumentProcessorBase
                 }
             }
         }
+    }
+
+    private static Dictionary<string, object> MergeMetadata(IDictionary<string, object> item, IDictionary<string, object> overwriteItems)
+    {
+        var result = new Dictionary<string, object>(item);
+        foreach (var pair in overwriteItems.OrderBy(item => item.Key))
+        {
+            if (result.ContainsKey(pair.Key))
+            {
+                Logger.LogWarning($"Metadata \"{pair.Key}\" inside rest api is overwritten.");
+            }
+
+            result[pair.Key] = pair.Value;
+        }
+        return result;
     }
 }
