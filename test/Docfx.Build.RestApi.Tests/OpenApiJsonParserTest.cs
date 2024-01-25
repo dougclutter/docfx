@@ -7,7 +7,7 @@ namespace Docfx.Build.RestApi.Tests;
 public class OpenApiJsonParserTest
 {
     [Fact]
-    public void ParseSimpleJsonShouldSucceed()
+    public void ParseOpenApi3SimpleWorks()
     {
         var swagger = OpenApiJsonParser.Parse("TestData/openapi/simple_openapi3.json");
 
@@ -29,17 +29,20 @@ public class OpenApiJsonParserTest
         Assert.NotNull(example);
     }
     [Fact]
-    public void ParseContactsShouldSucceed()
+    public void ParseOpenApi3ContactsShouldSucceed()
     {
         var document = OpenApiJsonParser.Parse("TestData/openApi/contacts.json");
         Assert.NotNull(document);
     }
-    [Theory]
-    [InlineData("TestData/swagger/simple_swagger2.json")]
-    [InlineData("TestData/swagger/contacts.json")]
-    public void Swagger2FilesReturnNull(string fileName)
+    [Fact]
+    public void ParseSwagger2SimpleReturnsNull()
     {
-        var document = OpenApiJsonParser.Parse(fileName);
+        var document = OpenApiJsonParser.Parse("TestData/swagger/simple_swagger2.json");
         Assert.Null(document);
+    }
+    [Fact]
+    public void ParseSwagger2ContactsThrows()
+    {
+        Assert.Throws<OpenApiJsonParserException>(() => OpenApiJsonParser.Parse("TestData/swagger/contacts.json"));
     }
 }
