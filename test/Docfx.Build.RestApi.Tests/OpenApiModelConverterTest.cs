@@ -53,7 +53,7 @@ public class OpenApiModelConverterTest
         var model = OpenApiJsonParser.Parse(PathToContactsJson);
         var viewModel = OpenApiModelConverter.FromOpenApiModel(model);
 
-        Assert.Equal(9, viewModel.Children.Count);
+        Assert.Equal(10, viewModel.Children.Count);
 
         var child = viewModel.Children.Single(i => i.OperationId == "get contact by id");
         Assert.Equal("/contacts/{object_id}", child.Path);
