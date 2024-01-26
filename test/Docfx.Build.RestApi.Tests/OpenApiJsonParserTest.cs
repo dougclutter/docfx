@@ -34,15 +34,12 @@ public class OpenApiJsonParserTest
         var document = OpenApiJsonParser.Parse("TestData/openApi/contacts.json");
         Assert.NotNull(document);
     }
-    [Fact]
-    public void ParseSwagger2SimpleReturnsNull()
+    [Theory]
+    [InlineData("TestData/swagger/simple_swagger2.json")]
+    [InlineData("TestData/swagger/contacts.json")]
+    public void ParseSwagger2ReturnsNull(string fileName)
     {
-        var document = OpenApiJsonParser.Parse("TestData/swagger/simple_swagger2.json");
+        var document = OpenApiJsonParser.Parse(fileName);
         Assert.Null(document);
-    }
-    [Fact]
-    public void ParseSwagger2ContactsThrows()
-    {
-        Assert.Throws<OpenApiJsonParserException>(() => OpenApiJsonParser.Parse("TestData/swagger/contacts.json"));
     }
 }
